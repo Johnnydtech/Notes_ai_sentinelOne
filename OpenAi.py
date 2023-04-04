@@ -15,7 +15,7 @@ class ThreatAnalyzer:
         model="gpt-3.5-turbo",
         messages=[
                 {"role": "system", "content": "analyzes alerts for malicious content using multiple varaibles from the user."},
-                {"role": "user", "content": f"analyze the alert using the filepath, orignating process and command line argument provided {file_path}, {originating_process}, and {commandLine_arg}. If the data is insufficient, just use the filepath to analyze the alert and share you need more info for detailed analysis. Always show the filepath on your response. Additionally, classify the alert into theses groups ,Legitimate, Investigation needed or  Malicious - disconnect the endpoint from netowrk"}    
+                {"role": "user", "content": f"analyze the alert using the filepath, orignating process and command line argument provided {file_path}, {originating_process}, and {commandLine_arg}. If the data is insufficient, just use the filepath to analyze the alert and share you need more info for detailed analysis. Always show the filepath on your response. Additionally, classify the alert into theses groups ,Legitimate, Investigation needed or  Malicious"}    
             ]
         )
         self.notes = response['choices'][0]['message']['content']
