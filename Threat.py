@@ -3,6 +3,7 @@ import requests
 import json
 from Main import SentinelOneAPI
 from OpenAi import ThreatAnalyzer
+import os
 
 class ThreatAPI:
     def __init__(self, base_url, token, openai_key):
@@ -173,10 +174,9 @@ class ThreatAPI:
         
 
 
-
-base_url = 'https://usea1-dfir.sentinelone.net/'
-openai_key = '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'
-token = 'p3dutPvaCOlVS9kkHJY0cjsxD4or0yPehLxNqo4YfLdftVXwlZfIl1Ni1Ae1tDvJproFWRw2I1QgOqgl'
+base_url = os.environ.get('BASE_URL')
+openai_key = os.environ.get('OPENAI_KEY')
+token = os.environ.get('TOKEN')
 
 Threat = ThreatAPI(base_url, token, openai_key)
 
