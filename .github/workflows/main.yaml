@@ -30,7 +30,7 @@ jobs:
         pip install -r requirements.txt
 
     - name: Run script
-      run: python ThreatAPI.py
+      run: python Threat.py
       env:
         BASE_URL: ${{ env.BASE_URL }}
         OPENAI_KEY: ${{ env.OPENAI_KEY }}
