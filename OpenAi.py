@@ -14,8 +14,8 @@ class ThreatAnalyzer:
         response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=[
-                {"role": "system", "content": "You are an AI that analyzes files for malicious content using multiple Varaibles from the user."},
-                {"role": "user", "content": f"analyze the alert using the {file_path}, {originating_process}, and {commandLine_arg} if the data is insufficient, just analyze the filepath and share what you find."}    
+                {"role": "system", "content": "analyzes alerts for malicious content using multiple varaibles from the user."},
+                {"role": "user", "content": f"analyze the alert using the filepath, orignating process and command line argument provided {file_path}, {originating_process}, and {commandLine_arg}. If the data is insufficient, just use the filepath to analyze the alert and share you need more info for detailed analysis. Always show the filepath on your response. Additionally, classify the alert into theses groups ,Legitimate, Investigation needed or  Malicious - disconnect the endpoint from netowrk"}    
             ]
         )
         self.notes = response['choices'][0]['message']['content']
