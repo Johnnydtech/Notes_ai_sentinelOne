@@ -144,7 +144,15 @@ class ThreatAPI:
             # Add notes to the threat
             print(self.TA.notes)
             self.post(threat_id,self.TA.notes)
+            
             #print("Comments added for the alerts")
+            
+            webhook_url = 'https://appriver3651011841.webhook.office.com/webhookb2/3531645f-e6ca-4980-8f61-4a123378bcad@573857c8-1ada-485a-9226-0c05fca4dabc/IncomingWebhook/e1ccd29ad09b438b8e1b79eb7ff8b9b1/0fadc43d-d929-49a7-8746-4403bc81cb1c'
+            headers = {'Content-type': 'application/json'}
+            payload = {'text': f'New threat detected: {self.TA.notes}'}
+            response = requests.post(webhook_url, json=payload, headers=headers)
+            if response.status_code == 200:
+                print('Webhook alert sent successfully.')
         
 
 
