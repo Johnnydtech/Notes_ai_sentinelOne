@@ -126,26 +126,7 @@ class ThreatAPI:
             else:
                 print("Error retrieving threat")
 
-
-    def load_last_run(self):
-        # Load the last run time from a file or database
-        try:
-            with open('last_run.txt', 'r') as file:
-                self.last_run = datetime.datetime.strptime(file.read().strip(), '%Y-%m-%d %H:%M:%S')
-        except:
-            self.last_run = None
-
-    def save_last_run(self):
-        # Save the current time as the last run time
-        with open('last_run.txt', 'w') as file:
-            file.write(datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S'))
-
-        # Get the ID of the most recent threat
-
     def run(self):
-        # Load the last run time from a file or database
-        self.load_last_run()
-
         # Get the most recent threat ID
         self.get_site()
         self.get_recent_threat_id()
@@ -155,29 +136,15 @@ class ThreatAPI:
             threat_id = self.threat_id[n]
             threat_info_list = self.threat_list[n][threat_id]
             print(threat_info_list)
-
             # Check if there are any new threats since the last run
-            if self.last_run is not None and threat_info_list['identified_at'] is not None:
-                identified_at = datetime.datetime.strptime(threat_info_list['identified_at'], '%Y-%m-%d %H:%M:%S')
-    
-                if identified_at > self.last_run:
-                # Your code here
-                    print("New threat detected...")
-                # Analyze the threat and make notes
-                    self.TA.note_response(threat_info_list['file_path'], threat_info_list['originating_process'], threat_info_list['commandLine_arg'])
-                    # Add notes to the threat
-                    print(self.TA.notes)
-                    self.post(threat_id,self.TA.notes)
-                    webhook_url = 'https://appriver3651011841.webhook.office.com/webhookb2/3531645f-e6ca-4980-8f61-4a123378bcad@573857c8-1ada-485a-9226-0c05fca4dabc/IncomingWebhook/e1ccd29ad09b438b8e1b79eb7ff8b9b1/0fadc43d-d929-49a7-8746-4403bc81cb1c'
-                    headers = {'Content-type': 'application/json'}
-                    payload = {'text': f'New threat detected: {self.TA.notes}'}
-                    response = requests.post(webhook_url, json=payload, headers=headers)
-                    if response.status_code == 200:
-                        print('Webhook alert sent successfully.')
-                    #print("Comments added for the alerts")
-
-                # Save the current time as the last run time
-        self.save_last_run()
+            # Your code here
+            print("New threat detected...")
+            # Analyze the threat and make notes
+            self.TA.note_response(threat_info_list['file_path'], threat_info_list['originating_process'], threat_info_list['commandLine_arg'])
+            # Add notes to the threat
+            print(self.TA.notes)
+            self.post(threat_id,self.TA.notes)
+            #print("Comments added for the alerts")
         
 
 
