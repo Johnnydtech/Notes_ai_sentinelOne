@@ -82,7 +82,7 @@ class ThreatAPI:
         now = datetime.datetime.now(datetime.timezone.utc)
 
         # subtract one day
-        one_day_ago = now - datetime.timedelta(days=1)
+        one_day_ago = now - datetime.timedelta(days=2)
 
         # format as string in desired format
         formatted_date = one_day_ago.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
