@@ -110,6 +110,7 @@ class ThreatAPI:
                         self.threat_id.append(threat_id)
                         threat_dict = {
                             threat_id : {
+                            'threat_name': agentdetection_info['threatInfo']['threatName'],
                             'originating_process': agentdetection_info['threatInfo']['originatorProcess'],
                             'file_path': agentdetection_info['threatInfo']['filePath'],
                             'site_name': agentdetection_info['agentDetectionInfo']['siteName'],
@@ -140,7 +141,7 @@ class ThreatAPI:
             # Your code here
             print("New threat detected...")
             # Analyze the threat and make notes
-            self.TA.note_response(threat_info_list['file_path'], threat_info_list['originating_process'], threat_info_list['commandLine_arg'])
+            self.TA.note_response(threat_info_list['file_path'], threat_info_list['originating_process'], threat_info_list['commandLine_arg'], threat_info_list['threat_name'])
             # Add notes to the threat
             site_name = threat_info_list['site_name']
             print(self.TA.notes)
