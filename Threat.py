@@ -116,7 +116,7 @@ class ThreatAPI:
                             'site_name': agentdetection_info['agentDetectionInfo']['siteName'],
                             'commandLine_arg': agentdetection_info['threatInfo']['maliciousProcessArguments'],
                             'hostname': agentdetection_info['agentRealtimeInfo']['agentComputerName'],
-                            'identified_at' : datetime.datetime.strptime(agentdetection_info['threatInfo']['identifiedAt'], '%Y-%m-%dT%H:%M:%S.%fZ').strftime('%Y-%m-%d %H:%M:%S')
+                            'identified_at': datetime.datetime.strptime(agentdetection_info['threatInfo']['identifiedAt'], '%Y-%m-%dT%H:%M:%S.%fZ').strftime('%Y-%m-%d %H:%M:%S') if '.' in agentdetection_info['threatInfo']['identifiedAt'] else datetime.datetime.strptime(agentdetection_info['threatInfo']['identifiedAt'], '%Y-%m-%dT%H:%M:%SZ').strftime('%Y-%m-%d %H:%M:%S')
                             }
                         }
                         self.threat_list.append(threat_dict)
